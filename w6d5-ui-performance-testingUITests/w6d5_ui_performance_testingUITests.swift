@@ -25,6 +25,7 @@ class w6d5_ui_performance_testingUITests: XCTestCase {
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+      deleteAllMeals()
     }
 
     func testExample() {
@@ -67,9 +68,22 @@ class w6d5_ui_performance_testingUITests: XCTestCase {
       
     }
   }
+  
+  func deleteAllMeals(){
+    let tablesQuery = app.tables
+    
+    
+    for i in 0..<app.tables.staticTexts.count{
+      app.tables.staticTexts.element(boundBy: i).swipeLeft()
+      let deleteBut = tablesQuery.buttons["Delete"]
+      if deleteBut.exists{
+        deleteBut.tap()
+      }
+    }
+  }
   func testShowMealDetails(){
     
-    
+    addNewMeal(name: "pizza", cals: 600)
     
     let app = XCUIApplication()
     app.tables/*@START_MENU_TOKEN@*/.staticTexts["pizza - 600"]/*[[".cells.staticTexts[\"pizza - 600\"]",".staticTexts[\"pizza - 600\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
@@ -82,4 +96,5 @@ class w6d5_ui_performance_testingUITests: XCTestCase {
     app.navigationBars["Detail"].buttons["Master"].tap()
    
   }
+ 
 }
